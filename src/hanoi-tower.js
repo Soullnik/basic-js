@@ -6,17 +6,8 @@ module.exports = function calculateHanoi( disksNumber, turnsSpeed ) {
     seconds: 0
   }
 
-  const towerOfHanoi = (n, source = 'A',auxiliary = 'B', destination = 'C') => {
-    if (n === 1) {
-      result.turns += 1;
-    } else {
-      towerOfHanoi(n - 1, source, destination, auxiliary);
-      towerOfHanoi(n - 1, auxiliary, source, destination);
-      result.turns +=1
-    }
-  }
-
-  towerOfHanoi(disksNumber)
+  result.turns = Math.pow(2, disksNumber) - 1
   result.seconds =  Math.floor(result.turns / (turnsSpeed / 3600))
+
   return  result
 }
