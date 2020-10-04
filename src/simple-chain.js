@@ -3,7 +3,6 @@ const CustomError = require("../extensions/custom-error");
 const chainMaker = {
   state: [],
 
-
   getLength() {
     return this.state.length
   },
@@ -12,15 +11,22 @@ const chainMaker = {
     return this
   },
   removeLink(position) {
-    this.state.splice(position - 1, 1)
-    return this
+    if (!Number(position) || position > this.state.length || position < 1) {
+      this.state = [];
+      throw new Error();
+    } else if (Number(position)) {
+      this.state.splice(position - 1, 1);
+      return this
+    }
   },
   reverseChain() {
     this.state.reverse();
     return this
   },
   finishChain() {
-    return this.state.join('~~')
+    const finish = this.state.join(('~~'));
+    this.state = [];
+    return finish;
   }
 };
 
